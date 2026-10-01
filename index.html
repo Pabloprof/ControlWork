@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicio Integral Informático - Pablo Sepúlveda</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0a0f1d',
+                            card: '#111827',
+                            blue: '#2563eb',
+                            electric: '#3b82f6',
+                            accent: '#10b981'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for professional icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for financial charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 h-full flex flex-col md:flex-row overflow-x-hidden">
+
+    <!-- Sidebar Navigation for Desktop & Mobile Header -->
+    <aside id="sidebar" class="bg-slate-900 border-r border-slate-800 text-white w-full md:w-72 flex-shrink-0 flex flex-col justify-between transition-all duration-300 z-30">
+        <div>
+            <!-- Logo & Brand Header based on Card -->
+            <div class="p-5 border-b border-slate-800">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-blue-600 p-2.5 rounded-xl text-white shadow-lg shadow-blue-500/20">
+                            <i class="fa-solid fa-server text-lg"></i>
+                        </div>
+                        <div>
+                            <h1 class="font-black text-sm tracking-wide uppercase text-white leading-tight">Servicio Integral</h1>
+                            <p class="text-xs text-blue-400 font-semibold tracking-wider">INFORMÁTICO</p>
+                        </div>
+                    </div>
+                    <button id="mobile-menu-close" class="md:hidden text-slate-400 hover:text-white p-2">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-400">
+                    <span class="font-medium text-slate-300"><i class="fa-solid fa-user-tie text-blue-400 mr-1.5"></i>Pablo Sepúlveda</span>
+                    <a href="https://wa.me/5492984151895" target="_blank" class="text-emerald-400 font-semibold hover:underline flex items-center">
+                        <i class="fa-brands fa-whatsapp mr-1"></i>2984-151895
+                    </a>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="p-4 space-y-1.5">
+                <button onclick="switchTab('dashboard')" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all bg-blue-600 text-white shadow-md shadow-blue-600/20" data-target="dashboard">
+                    <i class="fa-solid fa-chart-pie w-5 text-center"></i>
+                    <span>Dashboard Financiero</span>
+                </button>
+                <button onclick="switchTab('clients')" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white" data-target="clients">
+                    <i class="fa-solid fa-users w-5 text-center"></i>
+                    <span>Clientes & Direcciones</span>
+                </button>
+                <button onclick="switchTab('services')" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white" data-target="services">
+                    <i class="fa-solid fa-screwdriver-wrench w-5 text-center"></i>
+                    <span>Trabajos Realizados</span>
+                </button>
+                <button onclick="switchTab('finances')" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white" data-target="finances">
+                    <i class="fa-solid fa-wallet w-5 text-center"></i>
+                    <span>Gastos e Inversiones</span>
+                </button>
+                <button onclick="switchTab('android-guide')" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-300 hover:bg-slate-800 hover:text-white" data-target="android-guide">
+                    <i class="fa-brands fa-android w-5 text-center text-emerald-400"></i>
+                    <span>Convertir a App Android</span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Sidebar Footer -->
+        <div class="p-4 border-t border-slate-800 text-xs text-slate-400">
+            <div class="flex items-center justify-between mb-1">
+                <span class="text-slate-300 font-medium">Control Técnico Activo</span>
+                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            </div>
+            <p class="text-slate-500 text-[11px]">PC, Cámaras, Starlink & Electricidad</p>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex flex-col h-screen overflow-y-auto bg-slate-950">
+        <!-- Top Bar -->
+        <header class="bg-slate-900 border-b border-slate-800 px-6 py-4 flex items-center justify-between sticky top-0 z-20">
+            <div class="flex items-center space-x-4">
+                <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <h2 id="page-title" class="text-lg font-bold text-slate-100">Dashboard General</h2>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="switchTab('android-guide')" class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center space-x-2">
+                    <i class="fa-brands fa-android"></i>
+                    <span class="hidden sm:inline">Guía App Android</span>
+                </button>
+                <button onclick="exportData()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center space-x-2 border border-slate-700">
+                    <i class="fa-solid fa-download text-blue-400"></i>
+                    <span class="hidden sm:inline">Respaldar</span>
+                </button>
+                <label class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium transition flex items-center space-x-2 cursor-pointer">
+                    <i class="fa-solid fa-upload"></i>
+                    <span class="hidden sm:inline">Restaurar</span>
+                    <input type="file" id="importFile" class="hidden" onchange="importData(event)">
+                </label>
+            </div>
+        </header>
+
+        <!-- Dynamic Content Area -->
+        <div class="p-6 max-w-7xl w-full mx-auto flex-1 space-y-6">
+
+            <!-- TAB 1: DASHBOARD -->
+            <div id="dashboard" class="tab-content active space-y-6">
+                <!-- Financial KPI Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <!-- Ingresos Totales -->
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-lg flex items-center space-x-4">
+                        <div class="bg-emerald-500/10 text-emerald-400 p-4 rounded-xl text-xl border border-emerald-500/20">
+                            <i class="fa-solid fa-arrow-trend-up"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Ingresos Totales</p>
+                            <h3 id="kpi-income" class="text-2xl font-black text-white">$0.00</h3>
+                        </div>
+                    </div>
+                    <!-- Gastos Operativos -->
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-lg flex items-center space-x-4">
+                        <div class="bg-amber-500/10 text-amber-400 p-4 rounded-xl text-xl border border-amber-500/20">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Gastos Operativos</p>
+                            <h3 id="kpi-expenses" class="text-2xl font-black text-white">$0.00</h3>
+                        </div>
+                    </div>
+                    <!-- Inversiones -->
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-lg flex items-center space-x-4">
+                        <div class="bg-purple-500/10 text-purple-400 p-4 rounded-xl text-xl border border-purple-500/20">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Inversiones Stock</p>
+                            <h3 id="kpi-investments" class="text-2xl font-black text-white">$0.00</h3>
+                        </div>
+                    </div>
+                    <!-- Ganancia Neta -->
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-lg flex items-center space-x-4">
+                        <div class="bg-blue-500/10 text-blue-400 p-4 rounded-xl text-xl border border-blue-500/20">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Ganancia Neta</p>
+                            <h3 id="kpi-net" class="text-2xl font-black text-white">$0.00</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-lg">
+                        <h3 class="font-bold text-slate-200 mb-4 flex items-center justify-between">
+                            <span>Resumen Financiero</span>
+                            <span class="text-xs text-slate-400 font-normal">Ingresos vs Egresos</span>
+                        </h3>
+                        <div class="relative h-64">
+                            <canvas id="financeChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-lg">
+                        <h3 class="font-bold text-slate-200 mb-4 flex items-center justify-between">
+                            <span>Servicios por Categoría</span>
+                            <span class="text-xs text-slate-400 font-normal">Distribución</span>
+                        </h3>
+                        <div class="relative h-64 flex justify-center">
+                            <canvas id="servicesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activities Table -->
+                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-slate-200">Últimos Trabajos Registrados</h3>
+                        <button onclick="switchTab('services')" class="text-sm text-blue-400 hover:text-blue-300 font-medium">Ver todos</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b border-slate-800 text-xs font-semibold text-slate-400 uppercase">
+                                    <th class="py-3 px-4">Fecha</th>
+                                    <th class="py-3 px-4">Cliente</th>
+                                    <th class="py-3 px-4">Servicio</th>
+                                    <th class="py-3 px-4">Costo</th>
+                                    <th class="py-3 px-4">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-services-tbody" class="text-sm divide-y divide-slate-800/60">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: CLIENTS & ADDRESSES -->
+            <div id="clients" class="tab-content space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div class="relative flex-1 max-w-md">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-search"></i>
+                        </span>
+                        <input type="text" id="client-search" oninput="renderClients()" placeholder="Buscar por nombre, teléfono o dirección..." class="w-full pl-10 pr-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500 shadow-sm">
+                    </div>
+                    <button onclick="openClientModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl text-sm font-medium shadow-md shadow-blue-600/20 transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Nuevo Cliente</span>
+                    </button>
+                </div>
+
+                <!-- Clients Grid -->
+                <div id="clients-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <!-- TAB 3: SERVICES / JOBS -->
+            <div id="services" class="tab-content space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div class="flex items-center space-x-2 overflow-x-auto pb-2 sm:pb-0">
+                        <button onclick="filterServices('all')" class="service-filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-blue-600 text-white shadow-sm transition" data-filter="all">Todos</button>
+                        <button onclick="filterServices('PC y Notebooks')" class="service-filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition" data-filter="PC y Notebooks">PC & Notebooks</button>
+                        <button onclick="filterServices('Cámaras')" class="service-filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition" data-filter="Cámaras">Cámaras</button>
+                        <button onclick="filterServices('Conectividad/Starlink')" class="service-filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition" data-filter="Conectividad/Starlink">Conectividad / Starlink</button>
+                        <button onclick="filterServices('Electricidad')" class="service-filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition" data-filter="Electricidad">Electricidad</button>
+                    </div>
+                    <button onclick="openServiceModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl text-sm font-medium shadow-md shadow-blue-600/20 transition flex items-center justify-center space-x-2 flex-shrink-0">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Registrar Trabajo</span>
+                    </button>
+                </div>
+
+                <!-- Services Table -->
+                <div class="bg-slate-900 rounded-2xl border border-slate-800 shadow-lg overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-800/50 border-b border-slate-800 text-xs font-semibold text-slate-400 uppercase">
+                                    <th class="py-3 px-4">Fecha</th>
+                                    <th class="py-3 px-4">Cliente</th>
+                                    <th class="py-3 px-4">Servicio & Descripción</th>
+                                    <th class="py-3 px-4">Ingreso</th>
+                                    <th class="py-3 px-4">Estado</th>
+                                    <th class="py-3 px-4 text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="services-tbody" class="text-sm divide-y divide-slate-800/60">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: EXPENSES & INVESTMENTS -->
+            <div id="finances" class="tab-content space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div class="flex items-center space-x-2">
+                        <button onclick="filterFinances('all')" class="finance-filter-btn px-4 py-2 rounded-xl text-sm font-medium bg-blue-600 text-white shadow-sm transition" data-filter="all">Todos los Egresos</button>
+                        <button onclick="filterFinances('Gasto Operativo')" class="finance-filter-btn px-4 py-2 rounded-xl text-sm font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition" data-filter="Gasto Operativo">Gastos Operativos</button>
+                        <button onclick="filterFinances('Inversión')" class="finance-filter-btn px-4 py-2 rounded-xl text-sm font-medium bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800 transition" data-filter="Inversión">Inversiones</button>
+                    </div>
+                    <button onclick="openFinanceModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl text-sm font-medium shadow-md shadow-blue-600/20 transition flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                        <span>Registrar Egreso</span>
+                    </button>
+                </div>
+
+                <!-- Finances Table -->
+                <div class="bg-slate-900 rounded-2xl border border-slate-800 shadow-lg overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-800/50 border-b border-slate-800 text-xs font-semibold text-slate-400 uppercase">
+                                    <th class="py-3 px-4">Fecha</th>
+                                    <th class="py-3 px-4">Tipo</th>
+                                    <th class="py-3 px-4">Categoría / Detalle</th>
+                                    <th class="py-3 px-4">Monto</th>
+                                    <th class="py-3 px-4 text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="finances-tbody" class="text-sm divide-y divide-slate-800/60">
+                                <!-- Populated via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: ANDROID APP CONVERSION GUIDE -->
+            <div id="android-guide" class="tab-content space-y-6">
+                <div class="bg-gradient-to-r from-blue-900/40 via-slate-900 to-emerald-900/30 p-6 rounded-2xl border border-blue-500/30 shadow-xl">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="bg-emerald-500/20 p-3.5 rounded-xl text-emerald-400 text-2xl border border-emerald-500/30">
+                            <i class="fa-brands fa-android"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Manual de Conversión a Aplicación Android</h3>
+                            <p class="text-sm text-slate-300">Convierte tu sistema <span class="text-blue-400 font-semibold">Servicio Integral Informático</span> en una App nativa instalable en tu celular o tablet Android.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Methods Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Method 1: PWA (Recommended & Easiest) -->
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-lg flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Método 1 (Más Rápido)</span>
+                                <i class="fa-solid fa-bolt text-emerald-400"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2">Instalación Directa como PWA (Web App)</h4>
+                            <p class="text-xs text-slate-400 mb-4">No requiere compilar código APK. Funciona offline, guarda tus datos localmente en tu celular y se abre como una app normal.</p>
+                            
+                            <ol class="space-y-3 text-sm text-slate-300">
+                                <li class="flex items-start space-x-3">
+                                    <span class="bg-blue-600/20 text-blue-400 font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs">1</span>
+                                    <span>Sube este archivo HTML a un servicio gratuito (ej. <strong>GitHub Pages, Netlify o Vercel</strong>) para obtener un link web HTTPS.</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="bg-blue-600/20 text-blue-400 font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs">2</span>
+                                    <span>Abre ese link desde el navegador <strong>Google Chrome en tu teléfono Android</strong> (Pablo Sepúlveda - 2984-151895).</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="bg-blue-600/20 text-blue-400 font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs">3</span>
+                                    <span>Toca el menú superior derecho de Chrome (los 3 puntos) y selecciona <strong class="text-emerald-400">"Instalar aplicación"</strong> o "Agregar a la pantalla principal".</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="bg-blue-600/20 text-blue-400 font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs">4</span>
+                                    <span>¡Listo! Se creará el acceso directo con el icono del sistema en tu escritorio Android como si fuera una app descargada de Google Play.</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <!-- Method 2: PWABuilder / APK Packaging -->
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-lg flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Método 2 (Generar archivo .APK)</span>
+                                <i class="fa-solid fa-file-arrow-down text-blue-400"></i>
+                            </div>
+                            <h4 class="text-lg font-bold text-white mb-2">Empaquetado Nativo con PWABuilder</h4>
+                            <p class="text-xs text-slate-400 mb-4">Si necesitas un archivo `.apk` real para instalar manualmente o subirlo a la Play Store.</p>
+                            
+                            <ol class="space-y-3 text-sm text-slate-300">
+                                <li class="flex items-start space-x-3">
+                                    <span class="bg-blue-600/20 text-blue-400 font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs">1</span>
+                                    <span>Sube la web a internet (Netlify, Vercel o GitHub) para tener tu URL pública.</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="bg-blue-600/20 text-blue-400 font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs">2</span>
+                                    <span>Entra desde tu PC a <a href="https://www.pwabuilder.com" target="_blank" class="text-blue-400 underline font-semibold">pwabuilder.com</a> y pega tu URL.</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="bg-blue-600/20 text-blue-400 font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs">3</span>
+                                    <span>Haz clic en <strong>"Generate"</strong> en la sección de Android. Te generará un paquete con el archivo Manifest y el wrapper de Bubblewrap.</span>
+                                </li>
+                                <li class="flex items-start space-x-3">
+                                    <span class="bg-blue-600/20 text-blue-400 font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs">4</span>
+                                    <span>Descarga tu archivo <strong>.apk</strong> o <strong>.aab</strong> firmado y pásalo a tu celular o súbelo a Google Play Console.</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pro Tips Box -->
+                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-lg">
+                    <h4 class="font-bold text-white mb-3 flex items-center space-x-2">
+                        <i class="fa-solid fa-circle-info text-blue-400"></i>
+                        <span>Consejos Útiles para tu Trabajo Técnico</span>
+                    </h4>
+                    <ul class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-300">
+                        <li class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/50">
+                            <span class="font-bold text-emerald-400 block mb-1">Respaldo de Datos</span>
+                            Usa siempre el botón de <strong>Respaldar Datos</strong> en la barra superior para descargar un archivo JSON semanalmente y guardarlo en Google Drive.
+                        </li>
+                        <li class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/50">
+                            <span class="font-bold text-blue-400 block mb-1">Uso sin Conexión</span>
+                            Al instalar como PWA, la aplicación guarda toda la base de clientes y finanzas en la memoria interna de tu celular, funcionando perfectamente en zonas rurales sin señal.
+                        </li>
+                        <li class="bg-slate-800/60 p-4 rounded-xl border border-slate-700/50">
+                            <span class="font-bold text-amber-400 block mb-1">Contacto Directo</span>
+                            Tus clientes podrán ver tu número de WhatsApp profesional (2984-151895) integrado directamente en el encabezado de la app.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- MODAL: Client Form -->
+    <div id="client-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <div class="flex items-center justify-between mb-4">
+                <h3 id="client-modal-title" class="font-bold text-lg text-white">Nuevo Cliente</h3>
+                <button onclick="closeClientModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="client-form" onsubmit="saveClient(event)" class="space-y-4">
+                <input type="hidden" id="client-id">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Nombre Completo / Empresa</label>
+                    <input type="text" id="client-name" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Teléfono / WhatsApp</label>
+                    <input type="tel" id="client-phone" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Correo Electrónico</label>
+                    <input type="email" id="client-email" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Dirección Completa</label>
+                    <textarea id="client-address" rows="2" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500"></textarea>
+                </div>
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeClientModal()" class="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-800 transition">Cancelar</button>
+                    <button type="submit" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-medium shadow-md shadow-blue-600/20 transition">Guardar Cliente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Service Form -->
+    <div id="service-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <div class="flex items-center justify-between mb-4">
+                <h3 id="service-modal-title" class="font-bold text-lg text-white">Registrar Trabajo</h3>
+                <button onclick="closeServiceModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="service-form" onsubmit="saveService(event)" class="space-y-4">
+                <input type="hidden" id="service-id">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Cliente</label>
+                    <select id="service-client" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500">
+                        <!-- Populated via JS -->
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Tipo de Servicio</label>
+                        <select id="service-type" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500">
+                            <option value="PC y Notebooks">PC y Notebooks</option>
+                            <option value="Cámaras">Cámaras</option>
+                            <option value="Conectividad/Starlink">Conectividad / Starlink</option>
+                            <option value="Electricidad">Electricidad</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Fecha</label>
+                        <input type="date" id="service-date" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Descripción del Trabajo</label>
+                    <textarea id="service-desc" rows="2" required placeholder="Ej: Instalación antena Starlink / Formateo SSD" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Costo / Ingreso ($)</label>
+                        <input type="number" step="0.01" id="service-cost" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Estado</label>
+                        <select id="service-status" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500">
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="En Proceso">En Proceso</option>
+                            <option value="Completado">Completado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeServiceModal()" class="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-800 transition">Cancelar</button>
+                    <button type="submit" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-medium shadow-md shadow-blue-600/20 transition">Guardar Trabajo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Finance Form -->
+    <div id="finance-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <div class="flex items-center justify-between mb-4">
+                <h3 id="finance-modal-title" class="font-bold text-lg text-white">Registrar Egreso</h3>
+                <button onclick="closeFinanceModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="finance-form" onsubmit="saveFinance(event)" class="space-y-4">
+                <input type="hidden" id="finance-id">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Tipo de Egreso</label>
+                        <select id="finance-type" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500">
+                            <option value="Gasto Operativo">Gasto Operativo</option>
+                            <option value="Inversión">Inversión (Stock/Equipamiento)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Fecha</label>
+                        <input type="date" id="finance-date" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Monto ($)</label>
+                    <input type="number" step="0.01" id="finance-amount" required class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase mb-1">Categoría / Descripción</label>
+                    <input type="text" id="finance-desc" required placeholder="Ej: Combustible, Compra cámaras, Kit Starlink..." class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeFinanceModal()" class="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-800 transition">Cancelar</button>
+                    <button type="submit" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-medium shadow-md shadow-blue-600/20 transition">Guardar Egreso</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // State management with localStorage
+        let state = {
+            clients: JSON.parse(localStorage.getItem('servicio_integral_clients')) || [
+                { id: '1', name: 'Establecimiento Agrícola Sur', phone: '2984123456', email: 'contacto@suragricola.com', address: 'Ruta Nacional 22 km 1150' },
+                { id: '2', name: 'Carla Benítez', phone: '2984987654', email: 'carla@gmail.com', address: 'Calle San Martín 850, Gral. Roca' }
+            ],
+            services: JSON.parse(localStorage.getItem('servicio_integral_services')) || [
+                { id: '101', clientId: '1', type: 'Conectividad/Starlink', desc: 'Instalación integral kit Starlink y red Wi-Fi', date: '2026-03-01', cost: 250000, status: 'Completado' },
+                { id: '102', clientId: '2', type: 'PC y Notebooks', desc: 'Rescate de datos y cambio de disco SSD 1TB', date: '2026-03-03', cost: 55000, status: 'Completado' }
+            ],
+            finances: JSON.parse(localStorage.getItem('servicio_integral_finances')) || [
+                { id: '201', type: 'Inversión', desc: 'Kit de antena Starlink extra stock', date: '2026-02-25', amount: 450000 },
+                { id: '202', type: 'Gasto Operativo', desc: 'Combustible visitas técnicas', date: '2026-03-02', amount: 20000 }
+            ]
+        };
+
+        function saveState() {
+            localStorage.setItem('servicio_integral_clients', JSON.stringify(state.clients));
+            localStorage.setItem('servicio_integral_services', JSON.stringify(state.services));
+            localStorage.setItem('servicio_integral_finances', JSON.stringify(state.finances));
+            updateDashboard();
+        }
+
+        // Charts references
+        let financeChartInstance = null;
+        let servicesChartInstance = null;
+
+        // Mobile Menu Toggle
+        const sidebar = document.getElementById('sidebar');
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+        document.getElementById('mobile-menu-close').addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+        });
+
+        // Tab Switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => {
+                el.classList.remove('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-600/20');
+                el.classList.add('text-slate-300', 'hover:bg-slate-800', 'hover:text-white');
+            });
+
+            document.getElementById(tabId).classList.add('active');
+            const activeBtn = document.querySelector(`.nav-btn[data-target="${tabId}"]`);
+            if(activeBtn) {
+                activeBtn.classList.add('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-600/20');
+                activeBtn.classList.remove('text-slate-300', 'hover:bg-slate-800', 'hover:text-white');
+            }
+
+            // Update header title
+            const titles = {
+                dashboard: 'Dashboard Financiero',
+                clients: 'Gestión de Clientes y Direcciones',
+                services: 'Trabajos y Servicios Técnicos',
+                finances: 'Control de Gastos e Inversiones',
+                'android-guide': 'Guía para Convertir en App Android'
+            };
+            document.getElementById('page-title').textContent = titles[tabId];
+
+            if(window.innerWidth < 768) {
+                sidebar.classList.add('-translate-x-full');
+            }
+
+            if(tabId === 'dashboard') {
+                renderCharts();
+            }
+        }
+
+        // --- DASHBOARD & CHARTS ---
+        function updateDashboard() {
+            const totalIncome = state.services.reduce((sum, s) => sum + Number(s.cost), 0);
+            const totalExpenses = state.finances.filter(f => f.type === 'Gasto Operativo').reduce((sum, f) => sum + Number(f.amount), 0);
+            const totalInvestments = state.finances.filter(f => f.type === 'Inversión').reduce((sum, f) => sum + Number(f.amount), 0);
+            const netProfit = totalIncome - (totalExpenses + totalInvestments);
+
+            document.getElementById('kpi-income').textContent = `$${totalIncome.toLocaleString()}`;
+            document.getElementById('kpi-expenses').textContent = `$${totalExpenses.toLocaleString()}`;
+            document.getElementById('kpi-investments').textContent = `$${totalInvestments.toLocaleString()}`;
+            document.getElementById('kpi-net').textContent = `$${netProfit.toLocaleString()}`;
+
+            // Recent services list
+            const tbody = document.getElementById('recent-services-tbody');
+            tbody.innerHTML = '';
+            const recent = [...state.services].reverse().slice(0, 5);
+            recent.forEach(s => {
+                const client = state.clients.find(c => c.id === s.clientId) || { name: 'Cliente Eliminado' };
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-800/40 transition">
+                        <td class="py-3 px-4 text-slate-400">${s.date}</td>
+                        <td class="py-3 px-4 font-medium text-slate-200">${client.name}</td>
+                        <td class="py-3 px-4">
+                            <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${getServiceBadge(s.type)}">${s.type}</span>
+                            <span class="text-slate-400 ml-1 text-xs truncate max-w-xs inline-block align-middle">${s.desc}</span>
+                        </td>
+                        <td class="py-3 px-4 font-semibold text-emerald-400">+$${Number(s.cost).toLocaleString()}</td>
+                        <td class="py-3 px-4"><span class="text-xs px-2 py-0.5 rounded-md ${getStatusBadge(s.status)}">${s.status}</span></td>
+                    </tr>
+                `;
+            });
+            renderCharts();
+        }
+
+        function getServiceBadge(type) {
+            switch(type) {
+                case 'PC y Notebooks': return 'bg-blue-500/10 text-blue-400 border border-blue-500/20';
+                case 'Cámaras': return 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20';
+                case 'Conectividad/Starlink': return 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
+                case 'Electricidad': return 'bg-amber-500/10 text-amber-400 border border-amber-500/20';
+                default: return 'bg-slate-800 text-slate-300';
+            }
+        }
+
+        function getStatusBadge(status) {
+            switch(status) {
+                case 'Completado': return 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20';
+                case 'En Proceso': return 'bg-blue-500/10 text-blue-400 border border-blue-500/20';
+                case 'Pendiente': return 'bg-amber-500/10 text-amber-400 border border-amber-500/20';
+                default: return 'bg-slate-800 text-slate-400';
+            }
+        }
+
+        function renderCharts() {
+            const totalIncome = state.services.reduce((sum, s) => sum + Number(s.cost), 0);
+            const totalExpenses = state.finances.filter(f => f.type === 'Gasto Operativo').reduce((sum, f) => sum + Number(f.amount), 0);
+            const totalInvestments = state.finances.filter(f => f.type === 'Inversión').reduce((sum, f) => sum + Number(f.amount), 0);
+
+            // Finance Bar Chart
+            const ctxFinance = document.getElementById('financeChart').getContext('2d');
+            if(financeChartInstance) financeChartInstance.destroy();
+            financeChartInstance = new Chart(ctxFinance, {
+                type: 'bar',
+                data: {
+                    labels: ['Ingresos', 'Gastos', 'Inversiones'],
+                    datasets: [{
+                        data: [totalIncome, totalExpenses, totalInvestments],
+                        backgroundColor: ['#10b981', '#f59e0b', '#8b5cf6'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { 
+                        y: { 
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#94a3b8' }
+                        }
+                    }
+                }
+            });
+
+            // Services Pie Chart
+            const pcCount = state.services.filter(s => s.type === 'PC y Notebooks').length;
+            const camCount = state.services.filter(s => s.type === 'Cámaras').length;
+            const starCount = state.services.filter(s => s.type === 'Conectividad/Starlink').length;
+            const elecCount = state.services.filter(s => s.type === 'Electricidad').length;
+            const otherCount = state.services.filter(s => s.type === 'Otro').length;
+
+            const ctxServices = document.getElementById('servicesChart').getContext('2d');
+            if(servicesChartInstance) servicesChartInstance.destroy();
+            servicesChartInstance = new Chart(ctxServices, {
+                type: 'doughnut',
+                data: {
+                    labels: ['PC & Notebooks', 'Cámaras', 'Conectividad/Starlink', 'Electricidad', 'Otro'],
+                    datasets: [{
+                        data: [pcCount, camCount, starCount, elecCount, otherCount],
+                        backgroundColor: ['#3b82f6', '#06b6d4', '#10b981', '#f59e0b', '#64748b']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { color: '#94a3b8', boxWidth: 12 } } }
+                }
+            });
+        }
+
+        // --- CLIENTS MODULE ---
+        function renderClients() {
+            const query = document.getElementById('client-search').value.toLowerCase();
+            const grid = document.getElementById('clients-grid');
+            grid.innerHTML = '';
+
+            const filtered = state.clients.filter(c => 
+                c.name.toLowerCase().includes(query) || 
+                c.phone.toLowerCase().includes(query) || 
+                c.address.toLowerCase().includes(query)
+            );
+
+            if(filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-10 text-center text-slate-500">No se encontraron clientes registrados.</div>`;
+                return;
+            }
+
+            filtered.forEach(c => {
+                grid.innerHTML += `
+                    <div class="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-lg flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="flex items-start justify-between">
+                                <h4 class="font-bold text-white text-base">${c.name}</h4>
+                                <div class="flex space-x-2">
+                                    <button onclick="editClient('${c.id}')" class="text-slate-400 hover:text-blue-400 transition"><i class="fa-solid fa-pen text-sm"></i></button>
+                                    <button onclick="deleteClient('${c.id}')" class="text-slate-400 hover:text-red-400 transition"><i class="fa-solid fa-trash text-sm"></i></button>
+                                </div>
+                            </div>
+                            <p class="text-xs text-blue-400 font-medium mt-1"><i class="fa-solid fa-phone mr-1"></i>${c.phone}</p>
+                            ${c.email ? `<p class="text-xs text-slate-400 mt-0.5"><i class="fa-solid fa-envelope mr-1"></i>${c.email}</p>` : ''}
+                        </div>
+                        <div class="bg-slate-800/60 p-3 rounded-xl text-xs text-slate-300 flex items-start space-x-2 border border-slate-700/50">
+                            <i class="fa-solid fa-location-dot mt-0.5 text-blue-400"></i>
+                            <span>${c.address}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function openClientModal(id = null) {
+            document.getElementById('client-modal').classList.remove('hidden');
+            if(id) {
+                const client = state.clients.find(c => c.id === id);
+                document.getElementById('client-modal-title').textContent = 'Editar Cliente';
+                document.getElementById('client-id').value = client.id;
+                document.getElementById('client-name').value = client.name;
+                document.getElementById('client-phone').value = client.phone;
+                document.getElementById('client-email').value = client.email || '';
+                document.getElementById('client-address').value = client.address;
+            } else {
+                document.getElementById('client-modal-title').textContent = 'Nuevo Cliente';
+                document.getElementById('client-form').reset();
+                document.getElementById('client-id').value = '';
+            }
+        }
+
+        function closeClientModal() {
+            document.getElementById('client-modal').classList.add('hidden');
+        }
+
+        function saveClient(e) {
+            e.preventDefault();
+            const id = document.getElementById('client-id').value;
+            const data = {
+                id: id ? id : Date.now().toString(),
+                name: document.getElementById('client-name').value,
+                phone: document.getElementById('client-phone').value,
+                email: document.getElementById('client-email').value,
+                address: document.getElementById('client-address').value
+            };
+
+            if(id) {
+                const index = state.clients.findIndex(c => c.id === id);
+                state.clients[index] = data;
+            } else {
+                state.clients.push(data);
+            }
+
+            saveState();
+            closeClientModal();
+            renderClients();
+            populateClientDropdown();
+        }
+
+        function editClient(id) { openClientModal(id); }
+
+        function deleteClient(id) {
+            if(confirm('¿Estás seguro de eliminar este cliente? Se mantendrán sus servicios históricos.')) {
+                state.clients = state.clients.filter(c => c.id !== id);
+                saveState();
+                renderClients();
+                populateClientDropdown();
+            }
+        }
+
+        // --- SERVICES MODULE ---
+        let currentServiceFilter = 'all';
+
+        function renderServices() {
+            const tbody = document.getElementById('services-tbody');
+            tbody.innerHTML = '';
+
+            const filtered = currentServiceFilter === 'all' 
+                ? state.services 
+                : state.services.filter(s => s.type === currentServiceFilter);
+
+            if(filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-500">No hay servicios registrados.</td></tr>`;
+                return;
+            }
+
+            const sorted = [...filtered].sort((a,b) => new Date(b.date) - new Date(a.date));
+
+            sorted.forEach(s => {
+                const client = state.clients.find(c => c.id === s.clientId) || { name: 'Cliente Desconocido', address: '' };
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-800/40 transition">
+                        <td class="py-3 px-4 text-slate-400">${s.date}</td>
+                        <td class="py-3 px-4">
+                            <span class="font-medium text-white block">${client.name}</span>
+                            <span class="text-xs text-slate-400">${client.address}</span>
+                        </td>
+                        <td class="py-3 px-4">
+                            <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${getServiceBadge(s.type)} mb-1">${s.type}</span>
+                            <p class="text-slate-300 text-xs">${s.desc}</p>
+                        </td>
+                        <td class="py-3 px-4 font-semibold text-emerald-400">+$${Number(s.cost).toLocaleString()}</td>
+                        <td class="py-3 px-4"><span class="text-xs px-2 py-0.5 rounded-md ${getStatusBadge(s.status)}">${s.status}</span></td>
+                        <td class="py-3 px-4 text-right">
+                            <button onclick="editService('${s.id}')" class="text-slate-400 hover:text-blue-400 mr-2"><i class="fa-solid fa-pen text-sm"></i></button>
+                            <button onclick="deleteService('${s.id}')" class="text-slate-400 hover:text-red-400"><i class="fa-solid fa-trash text-sm"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function filterServices(type) {
+            currentServiceFilter = type;
+            document.querySelectorAll('.service-filter-btn').forEach(btn => {
+                if(btn.dataset.filter === type) {
+                    btn.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
+                    btn.classList.remove('bg-slate-900', 'text-slate-300', 'border', 'border-slate-800');
+                } else {
+                    btn.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
+                    btn.classList.add('bg-slate-900', 'text-slate-300', 'border', 'border-slate-800');
+                }
+            });
+            renderServices();
+        }
+
+        function populateClientDropdown() {
+            const select = document.getElementById('service-client');
+            select.innerHTML = '';
+            state.clients.forEach(c => {
+                select.innerHTML += `<option value="${c.id}">${c.name} - (${c.address})</option>`;
+            });
+        }
+
+        function openServiceModal(id = null) {
+            populateClientDropdown();
+            document.getElementById('service-modal').classList.remove('hidden');
+            document.getElementById('service-date').valueAsDate = new Date();
+
+            if(id) {
+                const s = state.services.find(item => item.id === id);
+                document.getElementById('service-modal-title').textContent = 'Editar Trabajo';
+                document.getElementById('service-id').value = s.id;
+                document.getElementById('service-client').value = s.clientId;
+                document.getElementById('service-type').value = s.type;
+                document.getElementById('service-date').value = s.date;
+                document.getElementById('service-desc').value = s.desc;
+                document.getElementById('service-cost').value = s.cost;
+                document.getElementById('service-status').value = s.status;
+            } else {
+                document.getElementById('service-modal-title').textContent = 'Registrar Trabajo';
+                document.getElementById('service-form').reset();
+                document.getElementById('service-id').value = '';
+                document.getElementById('service-date').valueAsDate = new Date();
+            }
+        }
+
+        function closeServiceModal() {
+            document.getElementById('service-modal').classList.add('hidden');
+        }
+
+        function saveService(e) {
+            e.preventDefault();
+            const id = document.getElementById('service-id').value;
+            const data = {
+                id: id ? id : Date.now().toString(),
+                clientId: document.getElementById('service-client').value,
+                type: document.getElementById('service-type').value,
+                date: document.getElementById('service-date').value,
+                desc: document.getElementById('service-desc').value,
+                cost: Number(document.getElementById('service-cost').value),
+                status: document.getElementById('service-status').value
+            };
+
+            if(id) {
+                const index = state.services.findIndex(s => s.id === id);
+                state.services[index] = data;
+            } else {
+                state.services.push(data);
+            }
+
+            saveState();
+            closeServiceModal();
+            renderServices();
+            updateDashboard();
+        }
+
+        function editService(id) { openServiceModal(id); }
+
+        function deleteService(id) {
+            if(confirm('¿Eliminar este registro de servicio?')) {
+                state.services = state.services.filter(s => s.id !== id);
+                saveState();
+                renderServices();
+                updateDashboard();
+            }
+        }
+
+        // --- FINANCES MODULE ---
+        let currentFinanceFilter = 'all';
+
+        function renderFinances() {
+            const tbody = document.getElementById('finances-tbody');
+            tbody.innerHTML = '';
+
+            const filtered = currentFinanceFilter === 'all' 
+                ? state.finances 
+                : state.finances.filter(f => f.type === currentFinanceFilter);
+
+            if(filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-500">No hay egresos registrados.</td></tr>`;
+                return;
+            }
+
+            const sorted = [...filtered].sort((a,b) => new Date(b.date) - new Date(a.date));
+
+            sorted.forEach(f => {
+                const typeBadge = f.type === 'Inversión' ? 'bg-purple-500/10 text-purple-400 border border-purple-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20';
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-800/40 transition">
+                        <td class="py-3 px-4 text-slate-400">${f.date}</td>
+                        <td class="py-3 px-4"><span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${typeBadge}">${f.type}</span></td>
+                        <td class="py-3 px-4 font-medium text-slate-200">${f.desc}</td>
+                        <td class="py-3 px-4 font-semibold text-rose-400">-$${Number(f.amount).toLocaleString()}</td>
+                        <td class="py-3 px-4 text-right">
+                            <button onclick="editFinance('${f.id}')" class="text-slate-400 hover:text-blue-400 mr-2"><i class="fa-solid fa-pen text-sm"></i></button>
+                            <button onclick="deleteFinance('${f.id}')" class="text-slate-400 hover:text-red-400"><i class="fa-solid fa-trash text-sm"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function filterFinances(type) {
+            currentFinanceFilter = type;
+            document.querySelectorAll('.finance-filter-btn').forEach(btn => {
+                if(btn.dataset.filter === type) {
+                    btn.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
+                    btn.classList.remove('bg-slate-900', 'text-slate-300', 'border', 'border-slate-800');
+                } else {
+                    btn.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
+                    btn.classList.add('bg-slate-900', 'text-slate-300', 'border', 'border-slate-800');
+                }
+            });
+            renderFinances();
+        }
+
+        function openFinanceModal(id = null) {
+            document.getElementById('finance-modal').classList.remove('hidden');
+            document.getElementById('finance-date').valueAsDate = new Date();
+
+            if(id) {
+                const f = state.finances.find(item => item.id === id);
+                document.getElementById('finance-modal-title').textContent = 'Editar Egreso';
+                document.getElementById('finance-id').value = f.id;
+                document.getElementById('finance-type').value = f.type;
+                document.getElementById('finance-date').value = f.date;
+                document.getElementById('finance-amount').value = f.amount;
+                document.getElementById('finance-desc').value = f.desc;
+            } else {
+                document.getElementById('finance-modal-title').textContent = 'Registrar Egreso';
+                document.getElementById('finance-form').reset();
+                document.getElementById('finance-id').value = '';
+                document.getElementById('finance-date').valueAsDate = new Date();
+            }
+        }
+
+        function closeFinanceModal() {
+            document.getElementById('finance-modal').classList.add('hidden');
+        }
+
+        function saveFinance(e) {
+            e.preventDefault();
+            const id = document.getElementById('finance-id').value;
+            const data = {
+                id: id ? id : Date.now().toString(),
+                type: document.getElementById('finance-type').value,
+                date: document.getElementById('finance-date').value,
+                amount: Number(document.getElementById('finance-amount').value),
+                desc: document.getElementById('finance-desc').value
+            };
+
+            if(id) {
+                const index = state.finances.findIndex(f => f.id === id);
+                state.finances[index] = data;
+            } else {
+                state.finances.push(data);
+            }
+
+            saveState();
+            closeFinanceModal();
+            renderFinances();
+            updateDashboard();
+        }
+
+        function editFinance(id) { openFinanceModal(id); }
+
+        function deleteFinance(id) {
+            if(confirm('¿Estás seguro de eliminar este registro financiero?')) {
+                state.finances = state.finances.filter(f => f.id !== id);
+                saveState();
+                renderFinances();
+                updateDashboard();
+            }
+        }
+
+        // --- BACKUP & RESTORE ---
+        function exportData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `servicio_integral_respaldo_${new Date().toISOString().slice(0,10)}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function importData(event) {
+            const fileReader = new FileReader();
+            if(event.target.files[0]) {
+                fileReader.readAsText(event.target.files[0], "UTF-8");
+                fileReader.onload = e => {
+                    try {
+                        const parsed = JSON.parse(e.target.result);
+                        if(parsed.clients && parsed.services && parsed.finances) {
+                            state = parsed;
+                            saveState();
+                            renderClients();
+                            renderServices();
+                            renderFinances();
+                            updateDashboard();
+                            alert('Datos restaurados correctamente.');
+                        } else {
+                            alert('El archivo no tiene el formato correcto.');
+                        }
+                    } catch(err) {
+                        alert('Error al leer el archivo JSON.');
+                    }
+                };
+            }
+        }
+
+        // Initial setup on window load
+        window.onload = function() {
+            renderClients();
+            renderServices();
+            renderFinances();
+            updateDashboard();
+        }
+    </script>
+</body>
+</html>
